@@ -5,6 +5,16 @@ import httpStatus from 'http-status';
 import { ProductService } from './product.service';
 import { IProduct } from './product.interface';
 
+const getAllProducts = catchAsync(async (req: Request, res: Response) => {
+  const result = await ProductService.getAllProducts();
+  sendResponse<IProduct[]>(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Products retrieved successfully',
+    data: result,
+  });
+});
+
 const getRandomProducts = catchAsync(async (req: Request, res: Response) => {
   const result = await ProductService.getRandomProducts();
   sendResponse<IProduct[]>(res, {
@@ -41,6 +51,7 @@ const getProductsByCategory = catchAsync(
 
 export const ProductController = {
   getRandomProducts,
+  getAllProducts,
   getProductById,
   getProductsByCategory,
 };

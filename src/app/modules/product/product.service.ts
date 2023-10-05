@@ -14,6 +14,11 @@ const getRandomProducts = async (): Promise<IProduct[]> => {
   return populatedProducts;
 };
 
+const getAllProducts = async (): Promise<IProduct[]> => {
+  const result = await Product.find().populate('category');
+  return result;
+};
+
 const getProductById = async (id: string): Promise<IProduct | null> => {
   const result = await Product.findById(id).populate('category');
   return result;
@@ -30,6 +35,7 @@ const getProductByCategory = async (
 
 export const ProductService = {
   getRandomProducts,
+  getAllProducts,
   getProductById,
   getProductByCategory,
 };
